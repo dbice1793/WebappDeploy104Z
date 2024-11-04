@@ -1,0 +1,21 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "sites_McFlurry222_name": {
+            "value": null
+        },
+        "components_McFlurry222_name": {
+            "value": null
+        },
+        "actionGroups_Application_Insights_Smart_Detection_name": {
+            "value": null
+        },
+        "workspaces_DefaultWorkspace_26bc90e3_c8d0_4345_8b20_638422194e14_WUS_externalid": {
+            "value": null
+        },
+        "serverfarms_ServicePlan1_externalid": {
+            "value": null
+        }
+    }
+}
