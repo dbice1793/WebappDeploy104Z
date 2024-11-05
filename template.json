@@ -6,8 +6,8 @@
             "defaultValue": "WEBAPPaz104444",
             "type": "String"
         },
-        "serverfarms_ServicePlan1_name": {
-            "defaultValue": "ServicePlan1",
+        "serverfarms_ServicePlan_name": {
+            "defaultValue": "ServicePlan2",
             "type": "String"
         },
         "userdefined_location": {
@@ -18,14 +18,31 @@
     "variables": {},
     "resources": [
         {
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2023-12-01",
+            "name": "[parameters('serverfarms_ServicePlan_name')]",
+            "location": "westus",
+            "sku": {
+                "name": "B1",
+                "tier": "Basic",
+                "size": "B1",
+                "family": "B",
+                "capacity": 1
+            },
+            "kind": "linux"
+        },
+        {
             "type": "Microsoft.Web/sites",
             "apiVersion": "2023-12-01",
             "name": "[parameters('sites_APPNAME')]",
             "location": "[parameters('userdefined_location')]",
             "kind": "app,linux",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_ServicePlan_name'))]"
+            ],
             "properties": {
                 "enabled": true,
-                "serverFarmId": "[parameters('serverfarms_ServicePlan1_name')]",
+                "serverFarmId": "[parameters('serverfarms_ServicePlan_name')]",
                 "siteConfig": {
                     "linuxFxVersion": "NODE|20-lts"
                 }
@@ -42,6 +59,22 @@
             ],
             "properties": {
                 "allow": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/sourcecontrols",
+            "apiVersion": "2021-02-01",
+            "name": "[concat(parameters('sites_APPNAME'), '/web')]",
+            "location": "[parameters('userdefined_location')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_APPNAME'))]"
+            ],
+            "properties": {
+                "repoUrl": "https://dev.azure.com/dbice12345/az104appservicelab/_git/az104appservicelab",
+                "branch": "main",
+                "isManualIntegration": true,
+                "deploymentRollbackEnabled": true,
+                "isGitHubAction": false
             }
         }
     ]
