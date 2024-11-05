@@ -2,47 +2,27 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "sites_APPNAME": {
-            "defaultValue": "WEBAPPaz104444",
+        "serverfarms_ServicePlan_name": {
+            "defaultValue": "ServicePlan2",
             "type": "String"
-        },
-        "serverfarms_ServicePlan1_name": {
-            "defaultValue": "ServicePlan1",
-            "type": "String"
-        },
-        "userdefined_location": {
-            "defaultValue": "[resourceGroup().location]",
-            "type": "string"
         }
     },
     "variables": {},
     "resources": [
         {
-            "type": "Microsoft.Web/sites",
+            "type": "Microsoft.Web/serverfarms",
             "apiVersion": "2023-12-01",
-            "name": "[parameters('sites_APPNAME')]",
-            "location": "[parameters('userdefined_location')]",
-            "kind": "app,linux",
-            "properties": {
-                "enabled": true,
-                "serverFarmId": "[parameters('serverfarms_ServicePlan1_name')]",
-                "siteConfig": {
-                    "linuxFxVersion": "NODE|20-lts"
-                }
-
-            }
-        },
-        {
-            "type": "Microsoft.Web/sites/basicPublishingCredentialsPolicies",
-            "apiVersion": "2023-12-01",
-            "name": "[concat(parameters('sites_APPNAME'), '/ftp')]",
-            "location": "[parameters('userdefined_location')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_APPNAME'))]"
-            ],
-            "properties": {
-                "allow": false
-            }
+            "name": "[parameters('serverfarms_ServicePlan_name')]",
+            "location": "westus",
+            "sku": {
+                "name": "B1",
+                "tier": "Basic",
+                "size": "B1",
+                "family": "B",
+                "capacity": 1
+            },
+            "kind": "linux"
         }
+
     ]
 }
