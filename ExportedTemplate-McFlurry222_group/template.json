@@ -18,8 +18,8 @@
             "defaultValue": "/subscriptions/26bc90e3-c8d0-4345-8b20-638422194e14/resourceGroups/DefaultResourceGroup-WUS/providers/Microsoft.OperationalInsights/workspaces/DefaultWorkspace-26bc90e3-c8d0-4345-8b20-638422194e14-WUS",
             "type": "String"
         },
-        "serverfarms_ServicePlan1_externalid": {
-            "defaultValue": "/subscriptions/26bc90e3-c8d0-4345-8b20-638422194e14/resourceGroups/webappGroup1/providers/Microsoft.Web/serverfarms/ServicePlan1",
+        "serverfarms_ServicePlan1_name": {
+            "defaultValue": "ServicePlan1",
             "type": "String"
         }
     },
@@ -99,7 +99,7 @@
                         "hostType": "Repository"
                     }
                 ],
-                "serverFarmId": "[parameters('serverfarms_ServicePlan1_externalid')]",
+                "serverFarmId": "[parameters('serverfarms_ServicePlan1_name')]",
                 "reserved": true,
                 "isXenon": false,
                 "hyperV": false,

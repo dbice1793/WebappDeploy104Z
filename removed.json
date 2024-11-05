@@ -1,0 +1,422 @@
+#line 90
+{
+    "type": "microsoft.insights/components",
+    "apiVersion": "2020-02-02",
+    "name": "[parameters('components_McFlurry222_name')]",
+    "location": "westus",
+    "kind": "web",
+    "properties": {
+        "Application_Type": "web",
+        "Flow_Type": "Redfield",
+        "Request_Source": "IbizaWebAppExtensionCreate",
+        "RetentionInDays": 90,
+        "WorkspaceResourceId": "[parameters('workspaces_DefaultWorkspace_26bc90e3_c8d0_4345_8b20_638422194e14_WUS_externalid')]",
+        "IngestionMode": "Disabled",
+        "publicNetworkAccessForIngestion": "Enabled",
+        "publicNetworkAccessForQuery": "Enabled"
+    }
+},
+
+#line 92
+"tags": {
+    "hidden-link: /app-insights-resource-id": "/subscriptions/26bc90e3-c8d0-4345-8b20-638422194e14/resourceGroups/McFlurry222_group/providers/microsoft.insights/components/McFlurry222",
+    "hidden-link: /app-insights-instrumentation-key": "c56ad097-ddae-4739-b94d-be69ea92c0b4",
+    "hidden-link: /app-insights-conn-string": "InstrumentationKey=c56ad097-ddae-4739-b94d-be69ea92c0b4;IngestionEndpoint=https://westus-0.in.applicationinsights.azure.com/;LiveEndpoint=https://westus.livediagnostics.monitor.azure.com/;ApplicationId=88930e28-f488-450e-862e-0141bb69f369"
+},
+# 130
+"customDomainVerificationId": "2D0646778ECB865B83EE5BD0EE8F26CB3EBA8FF78BA1118D75C272D79225533C",
+
+#430
+{
+    "type": "Microsoft.Web/sites/basicPublishingCredentialsPolicies",
+    "apiVersion": "2023-12-01",
+    "name": "[concat(parameters('sites_McFlurry222_name'), '/scm')]",
+    "location": "[parameters('userdefined_location')]",
+    "dependsOn": [
+        "[resourceId('Microsoft.Web/sites', parameters('sites_McFlurry222_name'))]"
+    ],
+    "tags": {
+        "hidden-link: /app-insights-resource-id": "/subscriptions/26bc90e3-c8d0-4345-8b20-638422194e14/resourceGroups/McFlurry222_group/providers/microsoft.insights/components/McFlurry222",
+        "hidden-link: /app-insights-instrumentation-key": "c56ad097-ddae-4739-b94d-be69ea92c0b4",
+        "hidden-link: /app-insights-conn-string": "InstrumentationKey=c56ad097-ddae-4739-b94d-be69ea92c0b4;IngestionEndpoint=https://westus-0.in.applicationinsights.azure.com/;LiveEndpoint=https://westus.livediagnostics.monitor.azure.com/;ApplicationId=88930e28-f488-450e-862e-0141bb69f369"
+    },
+    "properties": {
+        "allow": true
+    }
+},
+
+#insights
+
+{
+    "type": "microsoft.insights/actionGroups",
+    "apiVersion": "2023-09-01-preview",
+    "name": "[parameters('actionGroups_Application_Insights_Smart_Detection_name')]",
+    "location": "Global",
+    "properties": {
+        "groupShortName": "SmartDetect",
+        "enabled": true,
+        "emailReceivers": [],
+        "smsReceivers": [],
+        "webhookReceivers": [],
+        "eventHubReceivers": [],
+        "itsmReceivers": [],
+        "azureAppPushReceivers": [],
+        "automationRunbookReceivers": [],
+        "voiceReceivers": [],
+        "logicAppReceivers": [],
+        "azureFunctionReceivers": [],
+        "armRoleReceivers": [
+            {
+                "name": "Monitoring Contributor",
+                "roleId": "749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+                "useCommonAlertSchema": true
+            },
+            {
+                "name": "Monitoring Reader",
+                "roleId": "43d0d8ad-25c7-4714-9337-8ba259a9fe05",
+                "useCommonAlertSchema": true
+            }
+        ]
+    }
+},
+{
+    "type": "Microsoft.Web/serverfarms",
+    "apiVersion": "2023-12-01",
+    "name": "[parameters('serverfarms_ServicePlan1_name')]",
+    "location": "West US",
+    "sku": {
+        "name": "B1",
+        "tier": "Basic",
+        "size": "B1",
+        "family": "B",
+        "capacity": 1
+    },
+    "kind": "linux",
+    "properties": {
+        "perSiteScaling": false,
+        "elasticScaleEnabled": false,
+        "maximumElasticWorkerCount": 1,
+        "isSpot": false,
+        "freeOfferExpirationTime": "2024-11-29T00:37:50.0666667",
+        "reserved": true,
+        "isXenon": false,
+        "hyperV": false,
+        "targetWorkerCount": 0,
+        "targetWorkerSizeId": 0,
+        "zoneRedundant": false
+    }
+},
+
+
+{
+    "type": "microsoft.insights/components/ProactiveDetectionConfigs",
+    "apiVersion": "2018-05-01-preview",
+    "name": "[concat(parameters('components_McFlurry222_name'), '/degradationindependencyduration')]",
+    "location": "westus",
+    "dependsOn": [
+        "[resourceId('microsoft.insights/components', parameters('components_McFlurry222_name'))]"
+    ],
+    "properties": {
+        "ruleDefinitions": {
+            "Name": "degradationindependencyduration",
+            "DisplayName": "Degradation in dependency duration",
+            "Description": "Smart Detection rules notify you of performance anomaly issues.",
+            "HelpUrl": "https://docs.microsoft.com/en-us/azure/application-insights/app-insights-proactive-performance-diagnostics",
+            "IsHidden": false,
+            "IsEnabledByDefault": true,
+            "IsInPreview": false,
+            "SupportsEmailNotifications": true
+        },
+        "enabled": true,
+        "sendEmailsToSubscriptionOwners": true,
+        "customEmails": []
+    }
+},
+{
+    "type": "microsoft.insights/components/ProactiveDetectionConfigs",
+    "apiVersion": "2018-05-01-preview",
+    "name": "[concat(parameters('components_McFlurry222_name'), '/degradationinserverresponsetime')]",
+    "location": "westus",
+    "dependsOn": [
+        "[resourceId('microsoft.insights/components', parameters('components_McFlurry222_name'))]"
+    ],
+    "properties": {
+        "ruleDefinitions": {
+            "Name": "degradationinserverresponsetime",
+            "DisplayName": "Degradation in server response time",
+            "Description": "Smart Detection rules notify you of performance anomaly issues.",
+            "HelpUrl": "https://docs.microsoft.com/en-us/azure/application-insights/app-insights-proactive-performance-diagnostics",
+            "IsHidden": false,
+            "IsEnabledByDefault": true,
+            "IsInPreview": false,
+            "SupportsEmailNotifications": true
+        },
+        "enabled": true,
+        "sendEmailsToSubscriptionOwners": true,
+        "customEmails": []
+    }
+},
+{
+    "type": "microsoft.insights/components/ProactiveDetectionConfigs",
+    "apiVersion": "2018-05-01-preview",
+    "name": "[concat(parameters('components_McFlurry222_name'), '/digestMailConfiguration')]",
+    "location": "westus",
+    "dependsOn": [
+        "[resourceId('microsoft.insights/components', parameters('components_McFlurry222_name'))]"
+    ],
+    "properties": {
+        "ruleDefinitions": {
+            "Name": "digestMailConfiguration",
+            "DisplayName": "Digest Mail Configuration",
+            "Description": "This rule describes the digest mail preferences",
+            "HelpUrl": "www.homail.com",
+            "IsHidden": true,
+            "IsEnabledByDefault": true,
+            "IsInPreview": false,
+            "SupportsEmailNotifications": true
+        },
+        "enabled": true,
+        "sendEmailsToSubscriptionOwners": true,
+        "customEmails": []
+    }
+},
+{
+    "type": "microsoft.insights/components/ProactiveDetectionConfigs",
+    "apiVersion": "2018-05-01-preview",
+    "name": "[concat(parameters('components_McFlurry222_name'), '/extension_billingdatavolumedailyspikeextension')]",
+    "location": "westus",
+    "dependsOn": [
+        "[resourceId('microsoft.insights/components', parameters('components_McFlurry222_name'))]"
+    ],
+    "properties": {
+        "ruleDefinitions": {
+            "Name": "extension_billingdatavolumedailyspikeextension",
+            "DisplayName": "Abnormal rise in daily data volume (preview)",
+            "Description": "This detection rule automatically analyzes the billing data generated by your application, and can warn you about an unusual increase in your application's billing costs",
+            "HelpUrl": "https://github.com/Microsoft/ApplicationInsights-Home/tree/master/SmartDetection/billing-data-volume-daily-spike.md",
+            "IsHidden": false,
+            "IsEnabledByDefault": true,
+            "IsInPreview": true,
+            "SupportsEmailNotifications": false
+        },
+        "enabled": true,
+        "sendEmailsToSubscriptionOwners": true,
+        "customEmails": []
+    }
+},
+{
+    "type": "microsoft.insights/components/ProactiveDetectionConfigs",
+    "apiVersion": "2018-05-01-preview",
+    "name": "[concat(parameters('components_McFlurry222_name'), '/extension_canaryextension')]",
+    "location": "westus",
+    "dependsOn": [
+        "[resourceId('microsoft.insights/components', parameters('components_McFlurry222_name'))]"
+    ],
+    "properties": {
+        "ruleDefinitions": {
+            "Name": "extension_canaryextension",
+            "DisplayName": "Canary extension",
+            "Description": "Canary extension",
+            "HelpUrl": "https://github.com/Microsoft/ApplicationInsights-Home/blob/master/SmartDetection/",
+            "IsHidden": true,
+            "IsEnabledByDefault": true,
+            "IsInPreview": true,
+            "SupportsEmailNotifications": false
+        },
+        "enabled": true,
+        "sendEmailsToSubscriptionOwners": true,
+        "customEmails": []
+    }
+},
+{
+    "type": "microsoft.insights/components/ProactiveDetectionConfigs",
+    "apiVersion": "2018-05-01-preview",
+    "name": "[concat(parameters('components_McFlurry222_name'), '/extension_exceptionchangeextension')]",
+    "location": "westus",
+    "dependsOn": [
+        "[resourceId('microsoft.insights/components', parameters('components_McFlurry222_name'))]"
+    ],
+    "properties": {
+        "ruleDefinitions": {
+            "Name": "extension_exceptionchangeextension",
+            "DisplayName": "Abnormal rise in exception volume (preview)",
+            "Description": "This detection rule automatically analyzes the exceptions thrown in your application, and can warn you about unusual patterns in your exception telemetry.",
+            "HelpUrl": "https://github.com/Microsoft/ApplicationInsights-Home/blob/master/SmartDetection/abnormal-rise-in-exception-volume.md",
+            "IsHidden": false,
+            "IsEnabledByDefault": true,
+            "IsInPreview": true,
+            "SupportsEmailNotifications": false
+        },
+        "enabled": true,
+        "sendEmailsToSubscriptionOwners": true,
+        "customEmails": []
+    }
+},
+{
+    "type": "microsoft.insights/components/ProactiveDetectionConfigs",
+    "apiVersion": "2018-05-01-preview",
+    "name": "[concat(parameters('components_McFlurry222_name'), '/extension_memoryleakextension')]",
+    "location": "westus",
+    "dependsOn": [
+        "[resourceId('microsoft.insights/components', parameters('components_McFlurry222_name'))]"
+    ],
+    "properties": {
+        "ruleDefinitions": {
+            "Name": "extension_memoryleakextension",
+            "DisplayName": "Potential memory leak detected (preview)",
+            "Description": "This detection rule automatically analyzes the memory consumption of each process in your application, and can warn you about potential memory leaks or increased memory consumption.",
+            "HelpUrl": "https://github.com/Microsoft/ApplicationInsights-Home/tree/master/SmartDetection/memory-leak.md",
+            "IsHidden": false,
+            "IsEnabledByDefault": true,
+            "IsInPreview": true,
+            "SupportsEmailNotifications": false
+        },
+        "enabled": true,
+        "sendEmailsToSubscriptionOwners": true,
+        "customEmails": []
+    }
+},
+{
+    "type": "microsoft.insights/components/ProactiveDetectionConfigs",
+    "apiVersion": "2018-05-01-preview",
+    "name": "[concat(parameters('components_McFlurry222_name'), '/extension_securityextensionspackage')]",
+    "location": "westus",
+    "dependsOn": [
+        "[resourceId('microsoft.insights/components', parameters('components_McFlurry222_name'))]"
+    ],
+    "properties": {
+        "ruleDefinitions": {
+            "Name": "extension_securityextensionspackage",
+            "DisplayName": "Potential security issue detected (preview)",
+            "Description": "This detection rule automatically analyzes the telemetry generated by your application and detects potential security issues.",
+            "HelpUrl": "https://github.com/Microsoft/ApplicationInsights-Home/blob/master/SmartDetection/application-security-detection-pack.md",
+            "IsHidden": false,
+            "IsEnabledByDefault": true,
+            "IsInPreview": true,
+            "SupportsEmailNotifications": false
+        },
+        "enabled": true,
+        "sendEmailsToSubscriptionOwners": true,
+        "customEmails": []
+    }
+},
+{
+    "type": "microsoft.insights/components/ProactiveDetectionConfigs",
+    "apiVersion": "2018-05-01-preview",
+    "name": "[concat(parameters('components_McFlurry222_name'), '/extension_traceseveritydetector')]",
+    "location": "westus",
+    "dependsOn": [
+        "[resourceId('microsoft.insights/components', parameters('components_McFlurry222_name'))]"
+    ],
+    "properties": {
+        "ruleDefinitions": {
+            "Name": "extension_traceseveritydetector",
+            "DisplayName": "Degradation in trace severity ratio (preview)",
+            "Description": "This detection rule automatically analyzes the trace logs emitted from your application, and can warn you about unusual patterns in the severity of your trace telemetry.",
+            "HelpUrl": "https://github.com/Microsoft/ApplicationInsights-Home/blob/master/SmartDetection/degradation-in-trace-severity-ratio.md",
+            "IsHidden": false,
+            "IsEnabledByDefault": true,
+            "IsInPreview": true,
+            "SupportsEmailNotifications": false
+        },
+        "enabled": true,
+        "sendEmailsToSubscriptionOwners": true,
+        "customEmails": []
+    }
+},
+{
+    "type": "microsoft.insights/components/ProactiveDetectionConfigs",
+    "apiVersion": "2018-05-01-preview",
+    "name": "[concat(parameters('components_McFlurry222_name'), '/longdependencyduration')]",
+    "location": "westus",
+    "dependsOn": [
+        "[resourceId('microsoft.insights/components', parameters('components_McFlurry222_name'))]"
+    ],
+    "properties": {
+        "ruleDefinitions": {
+            "Name": "longdependencyduration",
+            "DisplayName": "Long dependency duration",
+            "Description": "Smart Detection rules notify you of performance anomaly issues.",
+            "HelpUrl": "https://docs.microsoft.com/en-us/azure/application-insights/app-insights-proactive-performance-diagnostics",
+            "IsHidden": false,
+            "IsEnabledByDefault": true,
+            "IsInPreview": false,
+            "SupportsEmailNotifications": true
+        },
+        "enabled": true,
+        "sendEmailsToSubscriptionOwners": true,
+        "customEmails": []
+    }
+},
+{
+    "type": "microsoft.insights/components/ProactiveDetectionConfigs",
+    "apiVersion": "2018-05-01-preview",
+    "name": "[concat(parameters('components_McFlurry222_name'), '/migrationToAlertRulesCompleted')]",
+    "location": "westus",
+    "dependsOn": [
+        "[resourceId('microsoft.insights/components', parameters('components_McFlurry222_name'))]"
+    ],
+    "properties": {
+        "ruleDefinitions": {
+            "Name": "migrationToAlertRulesCompleted",
+            "DisplayName": "Migration To Alert Rules Completed",
+            "Description": "A configuration that controls the migration state of Smart Detection to Smart Alerts",
+            "HelpUrl": "https://docs.microsoft.com/en-us/azure/application-insights/app-insights-proactive-performance-diagnostics",
+            "IsHidden": true,
+            "IsEnabledByDefault": false,
+            "IsInPreview": true,
+            "SupportsEmailNotifications": false
+        },
+        "enabled": false,
+        "sendEmailsToSubscriptionOwners": true,
+        "customEmails": []
+    }
+},
+{
+    "type": "microsoft.insights/components/ProactiveDetectionConfigs",
+    "apiVersion": "2018-05-01-preview",
+    "name": "[concat(parameters('components_McFlurry222_name'), '/slowpageloadtime')]",
+    "location": "westus",
+    "dependsOn": [
+        "[resourceId('microsoft.insights/components', parameters('components_McFlurry222_name'))]"
+    ],
+    "properties": {
+        "ruleDefinitions": {
+            "Name": "slowpageloadtime",
+            "DisplayName": "Slow page load time",
+            "Description": "Smart Detection rules notify you of performance anomaly issues.",
+            "HelpUrl": "https://docs.microsoft.com/en-us/azure/application-insights/app-insights-proactive-performance-diagnostics",
+            "IsHidden": false,
+            "IsEnabledByDefault": true,
+            "IsInPreview": false,
+            "SupportsEmailNotifications": true
+        },
+        "enabled": true,
+        "sendEmailsToSubscriptionOwners": true,
+        "customEmails": []
+    }
+},
+{
+    "type": "microsoft.insights/components/ProactiveDetectionConfigs",
+    "apiVersion": "2018-05-01-preview",
+    "name": "[concat(parameters('components_McFlurry222_name'), '/slowserverresponsetime')]",
+    "location": "westus",
+    "dependsOn": [
+        "[resourceId('microsoft.insights/components', parameters('components_McFlurry222_name'))]"
+    ],
+    "properties": {
+        "ruleDefinitions": {
+            "Name": "slowserverresponsetime",
+            "DisplayName": "Slow server response time",
+            "Description": "Smart Detection rules notify you of performance anomaly issues.",
+            "HelpUrl": "https://docs.microsoft.com/en-us/azure/application-insights/app-insights-proactive-performance-diagnostics",
+            "IsHidden": false,
+            "IsEnabledByDefault": true,
+            "IsInPreview": false,
+            "SupportsEmailNotifications": true
+        },
+        "enabled": true,
+        "sendEmailsToSubscriptionOwners": true,
+        "customEmails": []
+    }
+},
