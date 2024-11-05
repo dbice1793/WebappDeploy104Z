@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "sites_APPNAME": {
-            "defaultValue": "McFlurry222",
+            "defaultValue": "WEBAPPaz104444",
             "type": "String"
         },
         "serverfarms_ServicePlan1_name": {

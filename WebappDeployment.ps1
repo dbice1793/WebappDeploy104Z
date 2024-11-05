@@ -2,8 +2,6 @@ $rg = 'Webappaz104'
 New-AzResourceGroup -Name $rg -Location eastus -Force
 
 New-AzResourceGroupDeployment `
-    -Name 'CentosVM4' `
     -ResourceGroupName $rg `
-    -TemplateFile '01-linuxvm.json' `
-    -vmname "Centos4kk" `
+    -TemplateFile 'template.json' `
     -userdefined_location "centralus"
